@@ -36,11 +36,7 @@ async def send_telegram_message(bot, message, retries=3):
 
 async def check_seats(bot):
     global count
-    if count == 6:  # Check every 2 iterations (every 1 minute)
-            dhaka_time = datetime.now(dhaka_tz)
-            check= f'Server alive check {dhaka_time.strftime("%H:%M")}'
-            await send_telegram_message(bot, check)
-            count = 0
+    
     count += 1
     global flag
     flag=False
@@ -70,7 +66,16 @@ async def check_seats(bot):
         if flag:                
             dhaka_time = datetime.now(dhaka_tz)
             await send_telegram_message(bot,f'{dhaka_time.strftime("%H:%M")} [Last Updated :3 ]' )
+        else:
+            if count==2:
+                 dhaka_time = datetime.now(dhaka_tz)
+                 check= f'Server alive check {dhaka_time.strftime("%H:%M")}'
+                 await send_telegram_message(bot, check)
+                 count = 0
+            else:
+                count++
             
+                
                         
     except Exception as e:
         print(f"Error retrieving data: {e}")
