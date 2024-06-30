@@ -36,7 +36,7 @@ async def send_telegram_message(bot, message, retries=3):
 
 async def check_seats(bot):
     global count
-    if count == 12:  # Check every 2 iterations (every 1 minute)
+    if count == 6:  # Check every 2 iterations (every 1 minute)
             dhaka_time = datetime.now(dhaka_tz)
             check= f'Server alive check {dhaka_time.strftime("%H:%M")}'
             await send_telegram_message(bot, check)
