@@ -40,7 +40,7 @@ async def check_seats(bot):
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Find the table row that contains the desired courses and check the seats available
-        courses = ['CSE373', 'CSE273', 'CSE445','EEE154']
+        courses = ['CSE373', 'CSE273', 'CSE445']
         table = soup.find('table', {'id': 'offeredCourseTbl'})
         rows = table.find_all('tr')
         
