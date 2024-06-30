@@ -3,6 +3,12 @@ from bs4 import BeautifulSoup
 from telegram import Bot
 import asyncio
 import time
+from datetime import datetime
+import pytz
+
+dhaka_tz = pytz.timezone('Asia/Dhaka')
+
+# Get the current time in Dhaka
 
 # Replace with your Telegram bot token and chat ID
 TELEGRAM_BOT_TOKEN = '7157423384:AAFmzfqrQHStRQKRTnA-XOKKWjI71fOnnVI'
@@ -34,7 +40,7 @@ async def check_seats(bot):
         soup = BeautifulSoup(response.content, 'html.parser')
         
         # Find the table row that contains the desired courses and check the seats available
-        courses = ['CSE373', 'CSE273', 'CSE445']
+        courses = ['CSE373', 'CSE273', 'CSE445','EEE154']
         table = soup.find('table', {'id': 'offeredCourseTbl'})
         rows = table.find_all('tr')
         
@@ -47,7 +53,9 @@ async def check_seats(bot):
                         message = f'Seats available for {course}.{cells[2].text.strip()}: {seats_available}'
                         print(message)
                         await send_telegram_message(bot, message)
-                        await asyncio.sleep(3)  # Add a small delay between messages to avoid flood control
+                        await asyncio.sleep(3)
+        dhaka_time = datetime.now(dhaka_tz)
+        await send_telegram_message(bot,f'{dhaka_time.strftime("%H:%M")}' )
                         
     except Exception as e:
         print(f"Error retrieving data: {e}")
@@ -61,7 +69,9 @@ async def main():
         await asyncio.sleep(300)  # Wait for 30 seconds before checking again
         count += 1
         if count == 12:  # Check every 2 iterations (every 1 minute)
-            await send_telegram_message(bot, 'Server alive check')
+            dhaka_time = datetime.now(dhaka_tz)
+            check= f'Server alive check {dhaka_time.strftime("%H:%M")}'
+            await send_telegram_message(bot, check)
             count = 0
 
 if __name__ == '__main__':
