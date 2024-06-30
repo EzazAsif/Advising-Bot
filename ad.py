@@ -35,6 +35,13 @@ async def send_telegram_message(bot, message, retries=3):
             print(f"Unhandled exception: {e}")
 
 async def check_seats(bot):
+    global count
+    if count == 12:  # Check every 2 iterations (every 1 minute)
+            dhaka_time = datetime.now(dhaka_tz)
+            check= f'Server alive check {dhaka_time.strftime("%H:%M")}'
+            await send_telegram_message(bot, check)
+            count = 0
+    count += 1
     global flag
     flag=False
     url = 'https://rds2.northsouth.edu/index.php/common/showofferedcourses'  # Replace with the actual URL of the page
@@ -69,18 +76,14 @@ async def check_seats(bot):
         print(f"Error retrieving data: {e}")
 
 async def main():
-    global count
+    
     bot = Bot(token=TELEGRAM_BOT_TOKEN)
     while True:
         print("Running check...")
         await check_seats(bot)
         await asyncio.sleep(300)  # Wait for 300 seconds before checking again
-        count += 1
-        if count == 12:  # Check every 2 iterations (every 1 minute)
-            dhaka_time = datetime.now(dhaka_tz)
-            check= f'Server alive check {dhaka_time.strftime("%H:%M")}'
-            await send_telegram_message(bot, check)
-            count = 0
+        
+        
 
 if __name__ == '__main__':
     asyncio.run(main())
