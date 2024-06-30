@@ -66,7 +66,7 @@ async def check_seats(bot):
             dhaka_time = datetime.now(dhaka_tz)
             await send_telegram_message(bot,f'{dhaka_time.strftime("%H:%M")} [Last Updated :3 ]' )
         else:
-            if count==2:
+            if count>=2:
                  dhaka_time = datetime.now(dhaka_tz)
                  check= f'Server alive check {dhaka_time.strftime("%H:%M")}'
                  await send_telegram_message(bot, check)
