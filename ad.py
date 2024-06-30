@@ -48,16 +48,17 @@ async def check_seats(bot):
         rows = table.find_all('tr')
         
         for course in courses:
+            message = f'Seats available for {course}: '
             for row in rows:
                 cells = row.find_all('td')
                 if len(cells) > 0 and course in cells[1].text:
                     seats_available = int(cells[6].text.strip())
                     if seats_available > 0:
                         flag=True
-                        message = f'Seats available for {course}.{cells[2].text.strip()}: {seats_available} '
+                        message += f'\n section {cells[2].text.strip()}: {seats_available} '
                         print(message)
-                        await send_telegram_message(bot, message)
-                        await asyncio.sleep(3)
+            await send_telegram_message(bot, message)
+                        
         if flag:                
             dhaka_time = datetime.now(dhaka_tz)
             await send_telegram_message(bot,f'{dhaka_time.strftime("%H:%M")} [Last Updated :3 ]' )
