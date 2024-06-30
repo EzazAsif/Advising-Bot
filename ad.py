@@ -51,7 +51,7 @@ async def check_seats(bot):
                     seats_available = int(cells[6].text.strip())
                     if seats_available > 0:
                         flag=true
-                        message = f'Seats available for {course}.{cells[2].text.strip()}: {seats_available}'
+                        message = f'Seats available for {course}.{cells[2].text.strip()}: {seats_available} Last Updated'
                         print(message)
                         await send_telegram_message(bot, message)
                         await asyncio.sleep(3)
