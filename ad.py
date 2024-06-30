@@ -37,7 +37,6 @@ async def send_telegram_message(bot, message, retries=3):
 async def check_seats(bot):
     global count
     
-    count += 1
     global flag
     flag=False
     url = 'https://rds2.northsouth.edu/index.php/common/showofferedcourses'  # Replace with the actual URL of the page
