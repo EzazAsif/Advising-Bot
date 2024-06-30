@@ -66,7 +66,7 @@ async def main():
     while True:
         print("Running check...")
         await check_seats(bot)
-        await asyncio.sleep(300)  # Wait for 30 seconds before checking again
+        await asyncio.sleep(300)  # Wait for 300 seconds before checking again
         count += 1
         if count == 12:  # Check every 2 iterations (every 1 minute)
             dhaka_time = datetime.now(dhaka_tz)
