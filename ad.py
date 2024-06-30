@@ -52,13 +52,13 @@ async def check_seats(bot):
                     seats_available = int(cells[6].text.strip())
                     if seats_available > 0:
                         flag=True
-                        message = f'Seats available for {course}.{cells[2].text.strip()}: {seats_available} Last Updated'
+                        message = f'Seats available for {course}.{cells[2].text.strip()}: {seats_available} '
                         print(message)
                         await send_telegram_message(bot, message)
                         await asyncio.sleep(3)
         if flag:                
             dhaka_time = datetime.now(dhaka_tz)
-            await send_telegram_message(bot,f'{dhaka_time.strftime("%H:%M")}' )
+            await send_telegram_message(bot,f'{dhaka_time.strftime("%H:%M")} [Last Updated :3 ]' )
             flag=False
                         
     except Exception as e:
