@@ -14,7 +14,7 @@ dhaka_tz = pytz.timezone('Asia/Dhaka')
 TELEGRAM_BOT_TOKEN = '7157423384:AAFmzfqrQHStRQKRTnA-XOKKWjI71fOnnVI'
 TELEGRAM_CHAT_ID = '-1002137053797'
 count = 0
-flag=false
+flag=False
 async def send_telegram_message(bot, message, retries=3):
     try:
         await bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message)
@@ -50,7 +50,7 @@ async def check_seats(bot):
                 if len(cells) > 0 and course in cells[1].text:
                     seats_available = int(cells[6].text.strip())
                     if seats_available > 0:
-                        flag=true
+                        flag=True
                         message = f'Seats available for {course}.{cells[2].text.strip()}: {seats_available} Last Updated'
                         print(message)
                         await send_telegram_message(bot, message)
@@ -58,7 +58,7 @@ async def check_seats(bot):
         if flag:                
             dhaka_time = datetime.now(dhaka_tz)
             await send_telegram_message(bot,f'{dhaka_time.strftime("%H:%M")}' )
-            flag=false
+            flag=False
                         
     except Exception as e:
         print(f"Error retrieving data: {e}")
