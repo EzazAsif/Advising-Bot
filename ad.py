@@ -73,7 +73,7 @@ async def check_seats(bot):
                  await send_telegram_message(bot, check)
                  count = 0
             else:
-                count++
+                count+=1
             
                 
                         
