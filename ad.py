@@ -57,7 +57,8 @@ async def check_seats(bot):
                         flag=True
                         message += f'\n section {cells[2].text.strip()}: {seats_available} '
                         print(message)
-            await send_telegram_message(bot, message)
+            if flag:            
+                await send_telegram_message(bot, message)
                         
         if flag:                
             dhaka_time = datetime.now(dhaka_tz)
