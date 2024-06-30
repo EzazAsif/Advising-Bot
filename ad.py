@@ -5,6 +5,7 @@ import asyncio
 import time
 from datetime import datetime
 import pytz
+import telegram.error
 
 dhaka_tz = pytz.timezone('Asia/Dhaka')
 
