@@ -7,7 +7,7 @@ import time
 # Replace with your Telegram bot token and chat ID
 TELEGRAM_BOT_TOKEN = '7157423384:AAFmzfqrQHStRQKRTnA-XOKKWjI71fOnnVI'
 TELEGRAM_CHAT_ID = '-1002137053797'
-
+count=0
 async def send_telegram_message(bot, message, retries=3):
     try:
         await bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message)
@@ -52,11 +52,14 @@ async def check_seats(bot):
         print(f"Error retrieving data: {e}")
 
 async def main():
+    if count=12:
+        await send_telegram_message(bot, 'Sever alive check')
+        count=0
     bot = Bot(token=TELEGRAM_BOT_TOKEN)
     while True:
         print("Running check...")
         await check_seats(bot)
         await asyncio.sleep(300)  # Wait for 300 seconds (5 minutes) before checking again
-
+        count++
 if __name__ == '__main__':
     asyncio.run(main())
