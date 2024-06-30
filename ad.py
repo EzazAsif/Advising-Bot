@@ -35,6 +35,8 @@ async def send_telegram_message(bot, message, retries=3):
             print(f"Unhandled exception: {e}")
 
 async def check_seats(bot):
+    global flag
+    flag=False
     url = 'https://rds2.northsouth.edu/index.php/common/showofferedcourses'  # Replace with the actual URL of the page
     try:
         response = requests.get(url)
@@ -59,7 +61,7 @@ async def check_seats(bot):
         if flag:                
             dhaka_time = datetime.now(dhaka_tz)
             await send_telegram_message(bot,f'{dhaka_time.strftime("%H:%M")} [Last Updated :3 ]' )
-            flag=False
+            
                         
     except Exception as e:
         print(f"Error retrieving data: {e}")
