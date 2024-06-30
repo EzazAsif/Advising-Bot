@@ -52,7 +52,7 @@ async def check_seats(bot):
         print(f"Error retrieving data: {e}")
 
 async def main():
-    if count=2:
+    if count=12:
         await send_telegram_message(bot, 'Sever alive check')
         count=0
     bot = Bot(token=TELEGRAM_BOT_TOKEN)
