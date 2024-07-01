@@ -12,7 +12,7 @@ dhaka_tz = pytz.timezone('Asia/Dhaka')
 TELEGRAM_BOT_TOKEN = '7157423384:AAFmzfqrQHStRQKRTnA-XOKKWjI71fOnnVI'
 TELEGRAM_CHAT_ID = '-1002137053797'
 
-count = 0
+
 flag = False
 
 async def send_telegram_message(bot, message, retries=3):
@@ -34,7 +34,7 @@ async def send_telegram_message(bot, message, retries=3):
             print(f"Unhandled exception: {e}")
 
 async def check_seats(bot):
-    global count, flag
+    global flag
     flag = False
     url = 'https://rds2.northsouth.edu/index.php/common/showofferedcourses'
     try:
@@ -67,14 +67,8 @@ async def check_seats(bot):
         if flag:                
             dhaka_time = datetime.now(dhaka_tz)
             await send_telegram_message(bot, f'{dhaka_time.strftime("%H:%M")} [Last Updated :3 ]')
-        else:
-            if count >= 2:
-                dhaka_time = datetime.now(dhaka_tz)
-                check = f'Server alive check {dhaka_time.strftime("%H:%M")}'
-                await send_telegram_message(bot, check)
-                count = 0
-            else:
-                count += 1
+        
+        await bot.send_message(chat_id=1972577085, text=f'Server Alive check{dhaka_time.strftime("%H:%M")}')
                         
     except Exception as e:
         print(f"Error retrieving data: {e}")
